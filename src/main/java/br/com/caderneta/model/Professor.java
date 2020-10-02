@@ -8,23 +8,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "professores")
 public class Professor {
 	
 	@Id
 	@GeneratedValue
+	@Getter
 	private Long id;
 	
+	@Getter @Setter
 	@Column(length = 50, nullable = false)
 	private String nome;
 	
+	@Getter @Setter
 	@Column(length = 150, nullable = false)
 	private String sobrenome;
 	
+	@Getter @Setter
 	@Column(length = 11, nullable = false)
 	private String cpf;
 	
+	@Getter @Setter
 	@Column(nullable = false)
 	private Date dataNascimento;
 	
@@ -35,46 +43,6 @@ public class Professor {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getSobrenome() {
-		return sobrenome;
-	}
-
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
