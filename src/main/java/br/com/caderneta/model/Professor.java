@@ -1,7 +1,5 @@
 package br.com.caderneta.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +15,7 @@ public class Professor {
 	
 	@Id
 	@GeneratedValue
-	@Getter
+	@Getter @Setter
 	private Long id;
 	
 	@Getter @Setter
@@ -34,16 +32,16 @@ public class Professor {
 	
 	@Getter @Setter
 	@Column(nullable = false)
-	private Date dataNascimento;
+	private String foto;
 	
 	public Professor() {}
 
-	public Professor(Long id, String nome, String sobrenome, String cpf, Date dataNascimento) {
+	public Professor(Long id, String nome, String sobrenome, String cpf, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		this.foto = foto;
 	}
 
 	@Override
