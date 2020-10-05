@@ -32,8 +32,10 @@ public class ProfessorService {
 		
 		antigo.setNome(novo.getNome());
 		antigo.setSobrenome(novo.getSobrenome());
+		antigo.setEmail(novo.getEmail());
 		antigo.setCpf(novo.getCpf());
 		antigo.setFoto(novo.getFoto());
+		antigo.setSenha(novo.getSenha());
 		
 		return this.professorRepository.save(antigo);
 	}

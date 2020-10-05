@@ -27,21 +27,30 @@ public class Professor {
 	private String sobrenome;
 	
 	@Getter @Setter
+	@Column(length = 100, nullable = false)
+	private String email;
+	
+	@Getter @Setter
 	@Column(length = 11, nullable = false)
 	private String cpf;
 	
 	@Getter @Setter
-	@Column(nullable = false)
+	@Column()
 	private String foto;
+	
+	@Getter @Setter
+	@Column(nullable = false)
+	private String senha;
 	
 	public Professor() {}
 
-	public Professor(Long id, String nome, String sobrenome, String cpf, String foto) {
+	public Professor(Long id, String nome, String sobrenome, String cpf, String foto, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
 		this.foto = foto;
+		this.senha = senha;
 	}
 
 	@Override
