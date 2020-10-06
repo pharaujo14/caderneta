@@ -32,7 +32,7 @@ public class ProfessorResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> create(	 Professor professor) {
+	public ResponseEntity<Void> create(@RequestBody Professor professor) {
 
 		professor = this.professorService.create(professor);
 
