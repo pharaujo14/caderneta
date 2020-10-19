@@ -1,97 +1,64 @@
 package br.com.caderneta.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
+@Table(name = "turmas")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Turma {
 	
 	@Id
 	@GeneratedValue
-	@Getter @Setter
+	@EqualsAndHashCode.Include
 	private Long id;
 	
-	@Getter @Setter
 	@Column(length = 50, nullable = false)
 	private String nome;	
 	
-	@Getter @Setter
-	@Column(length = 150, nullable = false)
-	private String professor;
+	@ManyToOne
+	@JoinColumn(name = "professor_id")
+	@JsonIgnore
+	private Professor professor;
 	
-	@Getter @Setter
 	@Column(length = 150, nullable = false)
 	private String local;
 	
-	@Getter @Setter
 	@Column(length = 150, nullable = false)
 	private String horario;
 	
-	@Getter @Setter
 	@Column(length = 150, nullable = false)
 	private String dia;
 	
-	@Getter @Setter
 	@Column(length = 150, nullable = false)
 	private String inicio;
 	
-	@Getter @Setter
 	@Column(length = 150, nullable = false)
 	private String fim;
 	
-	@Getter @Setter
-	@Column(length = 150, nullable = false)
-	private String aluno;
-	
-	
-	
-	public Turma() {}
-
-	public Turma(Long id, String nome, String professor, String local, String horario, String dia, String inicio, String fim, String aluno) {
-		this.id = id;
-		this.nome = nome;
-		this.professor = professor;
-		this.local = local;
-		this.horario = horario;
-		this.dia = dia;
-		this.inicio = inicio;
-		this.fim = fim;
-		this.aluno = aluno;
-		
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Turma other = (Turma) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+	@ManyToMany
+	private Set<Aluno> alunos;
 
 }

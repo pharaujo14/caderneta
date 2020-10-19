@@ -36,7 +36,6 @@ public class TurmaService {
 		antigo.setDia(novo.getDia());
 		antigo.setInicio(novo.getInicio());
 		antigo.setFim(novo.getFim());
-		antigo.setAluno(novo.getAluno());	
 			
 		return this.turmaRepository.save(antigo);
 	}

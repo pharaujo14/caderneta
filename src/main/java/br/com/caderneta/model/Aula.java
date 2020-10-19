@@ -4,16 +4,37 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
-public abstract class Aula {
+@Table(name = "aulas")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Aula {
+	
+	@Id
+	@GeneratedValue
+	@EqualsAndHashCode.Include
+	private Long id;
+	
+	@Column(length = 50, nullable = false)
+	private String nome;	
+	
+	@Column(length = 50, nullable = false)
+	private String data;	
+	
+	
 	
 	
 
