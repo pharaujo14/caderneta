@@ -33,7 +33,6 @@ public class AlunoService {
 		antigo.setSobrenome(novo.getSobrenome());
 		antigo.setEmail(novo.getEmail());
 		antigo.setCpf(novo.getCpf());
-		antigo.setFoto(novo.getFoto());
 		antigo.setSenha(novo.getSenha());
 		
 		return this.alunoRepository.save(antigo);
