@@ -4,14 +4,14 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +40,6 @@ public class Turma {
 	
 	@ManyToOne
 	@JoinColumn(name = "professor_id")
-	@JsonIgnore
 	private Professor professor;
 	
 	@Column(length = 150, nullable = false)
@@ -58,7 +57,11 @@ public class Turma {
 	@Column(length = 150, nullable = false)
 	private String fim;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name="alunos_turmas",
+		joinColumns = @JoinColumn(name = "turma_id"),
+		inverseJoinColumns = @JoinColumn(name = "aluno_id"))
 	private Set<Aluno> alunos;
 
 }
