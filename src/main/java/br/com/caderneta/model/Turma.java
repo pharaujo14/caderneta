@@ -45,8 +45,11 @@ public class Turma {
 	@Column(length = 150, nullable = false)
 	private String local;
 	
-	@Column(length = 150, nullable = false)
-	private String horario;
+	@Column(name = "horario_inicio", length = 150, nullable = false)
+	private String horarioInicio;
+	
+	@Column(name = "horario_fim", length = 150, nullable = false)
+	private String horarioFim;
 	
 	@Column(length = 150, nullable = false)
 	private String dia;
