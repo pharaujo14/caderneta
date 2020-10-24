@@ -1,9 +1,13 @@
 package br.com.caderneta.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -33,6 +37,10 @@ public class Aula {
 	
 	@Column(length = 50, nullable = false)
 	private String data;	
+	
+	@ManyToOne
+	@JoinColumn(name = "turma_id")
+	private Turma turma;
 	
 	
 	
