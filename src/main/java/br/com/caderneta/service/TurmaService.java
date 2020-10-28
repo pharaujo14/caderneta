@@ -34,7 +34,7 @@ public class TurmaService {
 		antigo.setLocal(novo.getLocal());
 		antigo.setHorarioInicio(novo.getHorarioInicio());
 		antigo.setHorarioFim(novo.getHorarioFim());
-		antigo.setDia(novo.getDia());
+//		antigo.setDias(novo.getDias());
 		antigo.setInicio(novo.getInicio());
 		antigo.setFim(novo.getFim());
 			

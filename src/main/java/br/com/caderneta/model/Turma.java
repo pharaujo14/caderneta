@@ -1,5 +1,6 @@
 package br.com.caderneta.model;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -53,15 +54,15 @@ public class Turma {
 	
 	@Column(name = "horario_fim", length = 150, nullable = false)
 	private String horarioFim;
+//	
+//	@Enumerated
+//	private Set<DiasEnum> dias;
+//	
+	@Column(length = 150, nullable = false, columnDefinition = "DATE")
+	private LocalDate inicio;
 	
 	@Column(length = 150, nullable = false)
-	private String dia;
-	
-	@Column(length = 150, nullable = false)
-	private String inicio;
-	
-	@Column(length = 150, nullable = false)
-	private String fim;
+	private LocalDate fim;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
