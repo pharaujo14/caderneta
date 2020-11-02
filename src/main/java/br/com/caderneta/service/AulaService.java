@@ -1,7 +1,11 @@
 package br.com.caderneta.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aula;
+import br.com.caderneta.model.Turma;
 import br.com.caderneta.repository.AulaRepository;
 
 @Service
@@ -22,8 +27,40 @@ public class AulaService {
 	}
 	
 	public Aula create(Aula aula) {
+		
+		
+		
 		aula.setId(null);
 		return this.aulaRepository.save(aula);
+	}
+	
+	
+	public void createAulas(List <Integer> dias, Turma turma) {
+		
+		List<Aula> aulas = new ArrayList<>();
+		
+		LocalDate dataInicio = turma.getInicio();
+		
+		LocalDate dataFim = turma.getFim();
+		
+		
+		
+		for (Integer dia: dias) {
+			
+			List<LocalDate> datas = dataInicio.datesUntil(dataFim)
+                    .filter(data -> data.getDayOfWeek().getValue() == dia)
+                    .collect(Collectors.toList());
+			
+			for(LocalDate data: datas) {
+						
+				aulas.add(Aula.builder().data(data).turma(turma).build());
+				
+			}
+			
+		}
+		
+		this.aulaRepository.saveAll(aulas);
+		
 	}
 	
 	public Aula update(Aula nova) throws IdNotNullException, IdNotFoundException {

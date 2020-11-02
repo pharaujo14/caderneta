@@ -1,6 +1,7 @@
 package br.com.caderneta.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -54,10 +55,10 @@ public class Turma {
 	
 	@Column(name = "horario_fim", length = 150, nullable = false)
 	private String horarioFim;
-//	
-//	@Enumerated
-//	private Set<DiasEnum> dias;
-//	
+
+	//@Column
+	//private List<Dia> dias;	
+	
 	@Column(length = 150, nullable = false, columnDefinition = "DATE")
 	private LocalDate inicio;
 	

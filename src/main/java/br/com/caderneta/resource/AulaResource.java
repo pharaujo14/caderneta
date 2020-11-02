@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aula;
 import br.com.caderneta.service.AulaService;
+import request.AulasRequest;
 
 @RestController
 @RequestMapping("/aulas")
@@ -41,6 +43,16 @@ public class AulaResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@PostMapping
+	public ResponseEntity<?> createAulas(@RequestBody AulasRequest request ) {
+		
+		
+		this.aulaService.createAulas(request.getDias(), request.getTurma());
+				
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+		
+				}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Aula aula) throws IdNotNullException, IdNotFoundException{
