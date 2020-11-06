@@ -59,6 +59,10 @@ public class AulaService {
 			
 		}
 		
+		
+		aulas.sort((a1, a2) -> a1.getData().compareTo(a2.getData()));	
+		
+		
 		this.aulaRepository.saveAll(aulas);
 		
 	}
