@@ -30,7 +30,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 		 .antMatchers(HttpMethod.POST, "/aulas").permitAll()
 		 .antMatchers(HttpMethod.GET, "/alunos/**").permitAll()
 		 .antMatchers(HttpMethod.GET, "/professores").hasRole(RoleEnum.PROFESSOR.getName())
-		 .anyRequest().authenticated()
+		 .anyRequest().permitAll() // arrumar
 		 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		 .and().cors().disable().csrf().disable()
 		 .httpBasic();
