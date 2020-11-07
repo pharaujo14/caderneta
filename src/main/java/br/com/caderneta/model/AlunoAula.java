@@ -1,12 +1,8 @@
 package br.com.caderneta.model;
 
-
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -34,10 +30,10 @@ public class AlunoAula {
 	
 	private Boolean presenca;
 	
-	@ManyToMany
-	private Aluno aluno;
-	
-	@ManyToMany
-	private Aula aula;	
+//	@ManyToMany
+//	private Aluno aluno;
+//	
+//	@ManyToMany
+//	private Aula aula;	
 	
 }

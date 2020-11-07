@@ -1,7 +1,6 @@
 package br.com.caderneta.resource;
 
 import java.net.URI;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Professor;
-import br.com.caderneta.model.Turma;
 import br.com.caderneta.service.ProfessorService;
 
 @RestController

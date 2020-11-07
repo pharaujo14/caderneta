@@ -44,10 +44,9 @@ public class AulaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> createAulas(@RequestBody AulasRequest request ) {
-		
-		
+	@PostMapping("/emLote")
+	public ResponseEntity<Void> createAulas(@RequestBody AulasRequest request) {				
+
 		this.aulaService.createAulas(request.getDias(), request.getTurma());
 				
 		return ResponseEntity.status(HttpStatus.CREATED).build();
