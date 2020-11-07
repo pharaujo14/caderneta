@@ -3,26 +3,26 @@ package br.com.caderneta.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Professor;
+import br.com.caderneta.model.RoleEnum;
+import br.com.caderneta.model.Usuario;
 import br.com.caderneta.repository.ProfessorRepository;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class ProfessorService {
 	
 	private final ProfessorRepository professorRepository;
-	
-	@Autowired
-	public ProfessorService(ProfessorRepository professorRepository) {
-		this.professorRepository = professorRepository;
-	}
+	private final BCryptPasswordEncoder pEnconder;
 	
 	public Professor create(Professor professor) {
-		professor.setId(null);
+		professor = fromCreate(professor);
 		return this.professorRepository.save(professor);
 	}
 	
@@ -56,6 +56,24 @@ public class ProfessorService {
 		this.findById(id);
 		
 		this.professorRepository.deleteById(id);
+	}
+	
+	public Professor fromCreate(Professor professor) {
+		
+		return Professor.builder()
+				.nome(professor.getNome())
+				.sobrenome(professor.getSobrenome())
+				.email(professor.getEmail())
+				.cpf(professor.getCpf())
+				.senha(pEnconder.encode(professor.getSenha())) // ver isso com o Gustavo
+				.usuario(
+						Usuario.builder()
+						.senha(pEnconder.encode(professor.getSenha()))
+						.username(professor.getEmail())
+						.role(RoleEnum.PROFESSOR)
+						.build())
+				.build();
+				
 	}
 
 }

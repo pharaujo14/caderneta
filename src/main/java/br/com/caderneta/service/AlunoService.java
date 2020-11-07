@@ -3,26 +3,26 @@ package br.com.caderneta.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aluno;
+import br.com.caderneta.model.RoleEnum;
+import br.com.caderneta.model.Usuario;
 import br.com.caderneta.repository.AlunoRepository;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class AlunoService {
 
 	private final AlunoRepository alunoRepository;
-
-	@Autowired
-	public AlunoService(AlunoRepository alunoRepository) {
-		this.alunoRepository = alunoRepository;
-	}
+	private final BCryptPasswordEncoder pEnconder;
 
 	public Aluno create(Aluno aluno) {
-		aluno.setId(null);
+		aluno = fromCreate(aluno);
 		return this.alunoRepository.save(aluno);
 	}
 
@@ -57,6 +57,24 @@ public class AlunoService {
 		
 		this.alunoRepository.deleteById(id);
 		
+	}
+	
+	public Aluno fromCreate(Aluno aluno) {
+		
+		return Aluno.builder()
+				.nome(aluno.getNome())
+				.sobrenome(aluno.getSobrenome())
+				.email(aluno.getEmail())
+				.cpf(aluno.getCpf())
+				.senha(pEnconder.encode(aluno.getSenha())) // ver isso com o Gustavo
+				.usuario(
+						Usuario.builder()
+						.senha(pEnconder.encode(aluno.getSenha()))
+						.username(aluno.getEmail())
+						.role(RoleEnum.ALUNO)
+						.build())
+				.build();
+				
 	}
 
 }

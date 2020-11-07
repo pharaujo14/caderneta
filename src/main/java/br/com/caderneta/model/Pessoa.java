@@ -1,11 +1,21 @@
 package br.com.caderneta.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -27,19 +37,33 @@ public abstract class Pessoa{
 	@EqualsAndHashCode.Include
 	private Long id;
 	
-	@Column(length = 50, nullable = false)
+	@Column()
+	@NotNull
+    @Size(min = 6, max = 60)
 	private String nome;
 	
-	@Column(length = 150, nullable = false)
+	@Column()
+	@NotNull
+    @Size(min = 6, max = 60)
 	private String sobrenome;
 	
-	@Column(unique = true, length = 100, nullable = false)
+	@Column()
+	@NotNull
+    @Email
 	private String email;
 	
-	@Column(length = 15, nullable = false)
+	@Column()
+	@CPF
 	private String cpf;
 	
-	@Column(nullable = false)
+	@Column()
+    @NotNull
+    @Size(min = 8)
 	private String senha;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	@JsonIgnore
+	private Usuario usuario;
 
 }

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,11 +18,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Professor extends Pessoa{	
 	
 	@OneToMany(mappedBy="professor")
 	@JsonIgnore
 	private Set<Turma> turmas;
+
+	@Builder
+	public Professor(Long id, String nome, String sobrenome, String email, String cpf, String senha, Usuario usuario, Set<Turma> turmas) {
+		super(id, nome, sobrenome, email, cpf, senha, usuario);
+		this.turmas = turmas;
+	}
+	
+	
 
 }
