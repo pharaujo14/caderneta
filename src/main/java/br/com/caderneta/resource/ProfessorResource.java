@@ -3,7 +3,6 @@ package br.com.caderneta.resource;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +17,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Professor;
+import br.com.caderneta.model.Turma;
 import br.com.caderneta.service.ProfessorService;
+import br.com.caderneta.service.TurmaService;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/professores")
+@AllArgsConstructor
 public class ProfessorResource {
 
 	private final ProfessorService professorService;
-
-	@Autowired
-	public ProfessorResource(ProfessorService professorService) {
-		this.professorService = professorService;
-	}
-
+	private final TurmaService turmaService;
+	
+	
 	@PostMapping
 	public ResponseEntity<Void> create(@RequestBody Professor professor) {
 
@@ -68,6 +68,14 @@ public class ProfessorResource {
 	@GetMapping
 	public ResponseEntity<List<Professor>> findAll(){
 		return ResponseEntity.ok(this.professorService.findAll());
+	}
+	
+	@GetMapping("/{id}/turmas")
+	public ResponseEntity<List<Turma>> findTurmaByProfessor(@PathVariable Long id){
+		List<Turma> turmas = this.turmaService.findByProfessor(Professor.builder().id(id).build());
+		
+		return ResponseEntity.ok(turmas);
+
 	}
 	
 	@DeleteMapping("/{id}")

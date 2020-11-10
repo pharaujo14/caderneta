@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aluno;
+import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.Turma;
 import br.com.caderneta.repository.AlunoRepository;
 import br.com.caderneta.repository.TurmaRepository;
@@ -73,6 +74,12 @@ public class TurmaService {
 
 		this.turmaRepository.save(turma);
 
+	}
+	
+	public List<Turma> findByProfessor(Professor professor){
+		
+		return this.turmaRepository.findByProfessor(professor);
+		
 	}
 
 }
