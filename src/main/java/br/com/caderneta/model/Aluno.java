@@ -1,9 +1,12 @@
 package br.com.caderneta.model;
 
+
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,6 +22,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Aluno extends Pessoa{
+	
+	@Column
+	private Float mediaPresenca;
+		
+	@Column
+	private Float mediaNotas;
+	
+	
+	
 	
 	@ManyToMany(mappedBy = "alunos")
 	@JsonIgnore

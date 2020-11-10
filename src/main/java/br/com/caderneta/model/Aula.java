@@ -41,11 +41,6 @@ public class Aula {
 		
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "turma_id")
-	private Turma turma;
-	
-	
-	
-	
-	
+	private Turma turma;	
 
 }
