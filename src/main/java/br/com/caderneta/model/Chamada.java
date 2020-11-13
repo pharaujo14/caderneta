@@ -2,17 +2,15 @@ package br.com.caderneta.model;
 
 
 
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -40,10 +38,11 @@ public class Chamada {
 	@Column(length = 1, nullable = false)
 	private String flagPresenca;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-		name="alunos_turmas",
-		joinColumns = @JoinColumn(name = "turma_id"),
-		inverseJoinColumns = @JoinColumn(name = "aluno_id"))
-	private Set<Aluno> alunos;
+	@ManyToOne
+	@JoinColumn(name = "aluno_id")
+	private Aluno aluno;
+	
+	@ManyToOne
+	@JoinColumn(name = "aula_id")
+	private Aula aula;
 }

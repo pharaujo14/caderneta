@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aluno;
+import br.com.caderneta.model.Avaliacao;
+import br.com.caderneta.model.Chamada;
 import br.com.caderneta.model.RoleEnum;
 import br.com.caderneta.model.Usuario;
 import br.com.caderneta.repository.AlunoRepository;
+import br.com.caderneta.repository.AvaliacaoRepository;
+import br.com.caderneta.repository.ChamadaRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -19,7 +23,10 @@ import lombok.AllArgsConstructor;
 public class AlunoService {
 
 	private final AlunoRepository alunoRepository;
+	private final AvaliacaoRepository avaliacaoRepository; 
+	private final ChamadaRepository chamadaRepository;
 	private final BCryptPasswordEncoder pEnconder;
+	
 
 	public Aluno create(Aluno aluno) {
 		aluno = fromCreate(aluno);
@@ -29,11 +36,18 @@ public class AlunoService {
 	public Aluno update(Aluno novo) throws IdNotNullException, IdNotFoundException {
 		Aluno antigo = this.findById(novo.getId());
 		
+		Float mediaNotas = this.calcularMediaNota(antigo);
+		Float mediaPresenca = this.calcularMediaPresenca(antigo);
+		
+				
 		antigo.setNome(novo.getNome());
 		antigo.setSobrenome(novo.getSobrenome());
 		antigo.setEmail(novo.getEmail());
 		antigo.setCpf(novo.getCpf());
 		antigo.setSenha(novo.getSenha());
+		antigo.setMediaNotas(mediaNotas);
+		antigo.setMediaPresenca(mediaPresenca);
+		
 		
 		return this.alunoRepository.save(antigo);
 
@@ -78,6 +92,47 @@ public class AlunoService {
 				
 	}
 
+	private Float calcularMediaNota(Aluno aluno){
+		
+		List<Avaliacao> avaliacoes = avaliacaoRepository.findByAlunoId(aluno.getId());
+		
+		Float soma = 0F;
+		
+		Float resultado = 0F;
+		
+		for(Avaliacao avaliacao: avaliacoes) {
+			
+			soma += avaliacao.getNota();
+			
+		}
+		
+		resultado = soma/avaliacoes.size();
+		
+		return resultado;
+		
+	}
+	
+	private Float calcularMediaPresenca(Aluno aluno) {
+		
+		List<Chamada> chamadas = chamadaRepository.findByAlunoId(aluno.getId());
+		
+		Integer presencas = 0;
+		
+		Float resultado = 0F;
+		
+		for(Chamada chamada: chamadas) {			
+			if(chamada.getFlagPresenca().equalsIgnoreCase("S")) {				
+				presencas ++;				
+			}			
+		}
+		
+		resultado = (float) (presencas/chamadas.size())*100;
+		
+		return resultado;
+		
+	}
+	
+	
 	
 	
 }
