@@ -51,7 +51,7 @@ public class AulaResource {
 				
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 		
-				}
+	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Aula aula) throws IdNotNullException, IdNotFoundException{

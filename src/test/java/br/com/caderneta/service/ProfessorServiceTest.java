@@ -34,7 +34,7 @@ public class ProfessorServiceTest {
 		this.professorService = new ProfessorService(professorRepository, null);
 
 		professor = Professor.builder().nome("TesteTeste").sobrenome("TesteTeste").email("teste@teste.com")
-				.cpf("09102684012").senha("teste@123456789").id(1l).usuario(null).build();
+				.cpf("09102684012").id(1l).usuario(null).build();
 
 	}
 

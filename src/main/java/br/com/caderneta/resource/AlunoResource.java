@@ -64,6 +64,22 @@ public class AlunoResource {
 		return ResponseEntity.ok(this.alunoService.findAll());
 	}
 	
+	@GetMapping("/{id}/mediaNotas")
+	public ResponseEntity<Float> showMediaNotas(@PathVariable Long id) throws IdNotNullException, IdNotFoundException {
+
+		Aluno aluno = this.alunoService.findById(id);
+		
+		return ResponseEntity.ok(aluno.getMediaNotas());
+	}
+	
+	@GetMapping("/{id}/mediaPresenca")
+	public ResponseEntity<Float> showMediaPresenca(@PathVariable Long id) throws IdNotNullException, IdNotFoundException {
+
+		Aluno aluno = this.alunoService.findById(id);
+		
+		return ResponseEntity.ok(aluno.getMediaPresenca());
+	}
+	
 	@DeleteMapping
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws IdNotNullException, IdNotFoundException{
 		this.alunoService.deleteById(id);
