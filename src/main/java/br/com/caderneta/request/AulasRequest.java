@@ -1,4 +1,4 @@
-package request;
+package br.com.caderneta.request;
 
 import java.util.List;
 

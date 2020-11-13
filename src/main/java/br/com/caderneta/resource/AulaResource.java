@@ -19,8 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aula;
+import br.com.caderneta.request.AulasRequest;
 import br.com.caderneta.service.AulaService;
-import request.AulasRequest;
 
 @RestController
 @RequestMapping("/aulas")

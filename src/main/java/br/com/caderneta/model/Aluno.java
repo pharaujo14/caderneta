@@ -1,7 +1,5 @@
 package br.com.caderneta.model;
 
-
-
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,24 +21,25 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Aluno extends Pessoa{
-	
-	@Column
-	private Float mediaPresenca;
-		
-	@Column
-	private Float mediaNotas;
-	
-		
+public class Aluno extends Pessoa {
+
 	@ManyToMany(mappedBy = "alunos")
 	@JsonIgnore
 	private Set<Turma> turmas;
-	
-	@Builder
-	public Aluno(Long id, String nome, String sobrenome, String email, String cpf, String senha, Usuario usuario, Set<Turma> turmas) {
-		super(id, nome, sobrenome, email, cpf, senha, usuario);
-		this.turmas = turmas;
-	}
 
+	@Column
+	private Float mediaPresenca;
+
+	@Column
+	private Float mediaNotas;
+
+	@Builder
+	public Aluno(Long id, String nome, String sobrenome, String email, String cpf, Usuario usuario,
+			Set<Turma> turmas, Float mediaPresenca, Float mediaNotas) {
+		super(id, nome, sobrenome, email, cpf, usuario);
+		this.turmas = turmas;
+		this.mediaPresenca = mediaPresenca;
+		this.mediaNotas = mediaNotas;
+	}
 
 }

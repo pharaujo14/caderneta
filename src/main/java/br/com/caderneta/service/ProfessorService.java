@@ -11,6 +11,7 @@ import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.RoleEnum;
 import br.com.caderneta.model.Usuario;
+import br.com.caderneta.model.dto.create.ProfessorCreateDTO;
 import br.com.caderneta.repository.ProfessorRepository;
 import lombok.AllArgsConstructor;
 
@@ -21,8 +22,8 @@ public class ProfessorService {
 	private final ProfessorRepository professorRepository;
 	private final BCryptPasswordEncoder pEnconder;
 	
-	public Professor create(Professor professor) {
-		professor = fromCreate(professor);
+	public Professor create(ProfessorCreateDTO professorDTO) {
+		Professor professor = fromCreateDto(professorDTO);
 		return this.professorRepository.save(professor);
 	}
 	
@@ -34,7 +35,6 @@ public class ProfessorService {
 		antigo.setSobrenome(novo.getSobrenome());
 		antigo.setEmail(novo.getEmail());
 		antigo.setCpf(novo.getCpf());
-		antigo.setSenha(novo.getSenha());
 		
 		return this.professorRepository.save(antigo);
 	}
@@ -58,18 +58,17 @@ public class ProfessorService {
 		this.professorRepository.deleteById(id);
 	}
 	
-	public Professor fromCreate(Professor professor) {
+	public Professor fromCreateDto(ProfessorCreateDTO professorDTO) {
 		
 		return Professor.builder()
-				.nome(professor.getNome())
-				.sobrenome(professor.getSobrenome())
-				.email(professor.getEmail())
-				.cpf(professor.getCpf())
-				.senha(pEnconder.encode(professor.getSenha())) // ver isso com o Gustavo
+				.nome(professorDTO.getNome())
+				.sobrenome(professorDTO.getSobrenome())
+				.email(professorDTO.getEmail())
+				.cpf(professorDTO.getCpf())
 				.usuario(
 						Usuario.builder()
-						.senha(pEnconder.encode(professor.getSenha()))
-						.username(professor.getEmail())
+						.senha(pEnconder.encode(professorDTO.getSenha()))
+						.username(professorDTO.getEmail())
 						.role(RoleEnum.PROFESSOR)
 						.build())
 				.build();

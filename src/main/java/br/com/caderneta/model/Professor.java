@@ -25,8 +25,8 @@ public class Professor extends Pessoa{
 	private Set<Turma> turmas;
 
 	@Builder
-	public Professor(Long id, String nome, String sobrenome, String email, String cpf, String senha, Usuario usuario, Set<Turma> turmas) {
-		super(id, nome, sobrenome, email, cpf, senha, usuario);
+	public Professor(Long id, String nome, String sobrenome, String email, String cpf, Usuario usuario, Set<Turma> turmas) {
+		super(id, nome, sobrenome, email, cpf, usuario);
 		this.turmas = turmas;
 	}
 	

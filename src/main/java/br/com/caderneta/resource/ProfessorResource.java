@@ -18,6 +18,7 @@ import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.Turma;
+import br.com.caderneta.model.dto.create.ProfessorCreateDTO;
 import br.com.caderneta.service.ProfessorService;
 import br.com.caderneta.service.TurmaService;
 import lombok.AllArgsConstructor;
@@ -32,11 +33,11 @@ public class ProfessorResource {
 	
 	
 	@PostMapping
-	public ResponseEntity<Void> create(@RequestBody Professor professor) {
+	public ResponseEntity<Void> create(@RequestBody ProfessorCreateDTO professor) {
 
-		professor = this.professorService.create(professor);
+		Professor savedProfessor = this.professorService.create(professor);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(professor.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedProfessor.getId())
 				.toUri();
 
 		

@@ -13,6 +13,7 @@ import br.com.caderneta.model.Avaliacao;
 import br.com.caderneta.model.Chamada;
 import br.com.caderneta.model.RoleEnum;
 import br.com.caderneta.model.Usuario;
+import br.com.caderneta.model.dto.create.AlunoCreateDTO;
 import br.com.caderneta.repository.AlunoRepository;
 import br.com.caderneta.repository.AvaliacaoRepository;
 import br.com.caderneta.repository.ChamadaRepository;
@@ -28,8 +29,8 @@ public class AlunoService {
 	private final BCryptPasswordEncoder pEnconder;
 	
 
-	public Aluno create(Aluno aluno) {
-		aluno = fromCreate(aluno);
+	public Aluno create(AlunoCreateDTO alunoDTO) {
+		Aluno aluno = fromCreateDto(alunoDTO);
 		return this.alunoRepository.save(aluno);
 	}
 
@@ -44,7 +45,6 @@ public class AlunoService {
 		antigo.setSobrenome(novo.getSobrenome());
 		antigo.setEmail(novo.getEmail());
 		antigo.setCpf(novo.getCpf());
-		antigo.setSenha(novo.getSenha());
 		antigo.setMediaNotas(mediaNotas);
 		antigo.setMediaPresenca(mediaPresenca);
 		
@@ -74,18 +74,17 @@ public class AlunoService {
 	}
 	
 		
-	public Aluno fromCreate(Aluno aluno) {
+	public Aluno fromCreateDto(AlunoCreateDTO alunoDTO) {
 		
 		return Aluno.builder()
-				.nome(aluno.getNome())
-				.sobrenome(aluno.getSobrenome())
-				.email(aluno.getEmail())
-				.cpf(aluno.getCpf())
-				.senha(pEnconder.encode(aluno.getSenha())) // ver isso com o Gustavo
+				.nome(alunoDTO.getNome())
+				.sobrenome(alunoDTO.getSobrenome())
+				.email(alunoDTO.getEmail())
+				.cpf(alunoDTO.getCpf())
 				.usuario(
 						Usuario.builder()
-						.senha(pEnconder.encode(aluno.getSenha()))
-						.username(aluno.getEmail())
+						.senha(pEnconder.encode(alunoDTO.getSenha()))
+						.username(alunoDTO.getEmail())
 						.role(RoleEnum.ALUNO)
 						.build())
 				.build();

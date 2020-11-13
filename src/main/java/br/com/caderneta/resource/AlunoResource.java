@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aluno;
+import br.com.caderneta.model.dto.create.AlunoCreateDTO;
 import br.com.caderneta.service.AlunoService;
 
 @RestController
@@ -32,11 +33,11 @@ public class AlunoResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> create(@RequestBody Aluno aluno) {
+	public ResponseEntity<Void> create(@RequestBody AlunoCreateDTO aluno) {
 
-		aluno = this.alunoService.create(aluno);
+		Aluno savedAluno = this.alunoService.create(aluno);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(aluno.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAluno.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
