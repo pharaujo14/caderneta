@@ -1,25 +1,36 @@
-package br.com.caderneta.security;
+package br.com.caderneta.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.caderneta.model.Usuario;
 import br.com.caderneta.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 
 @Service
 @AllArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService{
-
+@Builder
+public class UsuarioService {
+	
     private final UsuarioRepository usuarioRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+    public Usuario findByUsername(String username) {
         return this.usuarioRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("Usuário " + username + "não encontrado"));
-
     }
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
