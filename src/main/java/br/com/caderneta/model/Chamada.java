@@ -1,9 +1,5 @@
 package br.com.caderneta.model;
 
-
-
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -21,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "turmas")
+@Table(name = "chamadas")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -64,6 +65,14 @@ public class ProfessorResource {
 
 		return ResponseEntity.ok(professor);
 
+	}
+	
+	@GetMapping("/user")
+	public ResponseEntity<Professor> findByUsuario(@RequestParam Long id) throws IdNotNullException, IdNotFoundException {
+
+		Professor professor = this.professorService.findByUsuario(id);
+		
+		return ResponseEntity.ok(professor);
 	}
 	
 	@GetMapping

@@ -21,7 +21,7 @@ import javax.persistence.Table;
 	import lombok.Setter;
 
 	@Entity
-	@Table(name = "turmas")
+	@Table(name = "avaliacao")
 	@Getter
 	@Setter
 	@NoArgsConstructor

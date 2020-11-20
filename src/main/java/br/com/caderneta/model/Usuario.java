@@ -45,6 +45,7 @@ public class Usuario implements UserDetails{
 	private String senha;
 	
 	private int role;
+
 	
 	@Builder
 	public Usuario(Long id, String username, String senha, RoleEnum role) {

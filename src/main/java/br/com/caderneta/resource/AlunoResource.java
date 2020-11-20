@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -55,6 +56,14 @@ public class AlunoResource {
 	public ResponseEntity<Aluno> findById(@PathVariable Long id) throws IdNotNullException, IdNotFoundException {
 
 		Aluno aluno = this.alunoService.findById(id);
+		
+		return ResponseEntity.ok(aluno);
+	}
+	
+	@GetMapping("/user")
+	public ResponseEntity<Aluno> findByUsuario(@RequestParam Long id) throws IdNotNullException, IdNotFoundException {
+
+		Aluno aluno = this.alunoService.findByUsuario(id);
 		
 		return ResponseEntity.ok(aluno);
 	}

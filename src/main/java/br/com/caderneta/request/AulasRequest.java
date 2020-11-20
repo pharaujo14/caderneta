@@ -3,7 +3,6 @@ package br.com.caderneta.request;
 import java.util.List;
 
 import br.com.caderneta.model.Turma;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

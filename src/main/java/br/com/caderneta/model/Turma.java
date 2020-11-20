@@ -1,7 +1,6 @@
 package br.com.caderneta.model;
 
 import java.time.LocalDate;
-
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -55,9 +54,6 @@ public class Turma {
 	
 	@Column(name = "horario_fim", length = 150, nullable = false)
 	private String horarioFim;
-
-	@Column
-	private String diasAulas;	
 	
 	@Column(length = 150, nullable = false, columnDefinition = "DATE")
 	private LocalDate inicio;

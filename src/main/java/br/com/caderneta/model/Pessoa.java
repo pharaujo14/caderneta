@@ -30,6 +30,7 @@ public abstract class Pessoa{
 	@Id
 	@GeneratedValue
 	@EqualsAndHashCode.Include
+	@Getter
 	private Long id;
 	
 	@Column()

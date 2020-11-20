@@ -62,6 +62,15 @@ public class AlunoService {
 					.orElseThrow( () -> new IdNotFoundException("Aluno: " + id));
 	}
 	
+	public Aluno findByUsuario(Long usrId) throws IdNotNullException, IdNotFoundException {
+		Optional
+				.ofNullable(usrId)
+				.orElseThrow( () -> new IdNotNullException("Aluno: " + usrId));
+		
+		return this.alunoRepository.findByUsuario_id(usrId)
+					.orElseThrow( () -> new IdNotFoundException("Aluno: " + usrId));
+	}
+	
 	public List<Aluno> findAll(){
 		return this.alunoRepository.findAll();
 	}
