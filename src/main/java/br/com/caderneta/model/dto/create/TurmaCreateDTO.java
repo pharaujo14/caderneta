@@ -1,10 +1,10 @@
 package br.com.caderneta.model.dto.create;
 
-import javax.validation.constraints.Email;
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,25 +15,32 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @AllArgsConstructor
-public class AlunoCreateDTO {
+public class TurmaCreateDTO {
 	
 	@NotNull
     @Size(min = 6, max = 60)
-	private String nome;
+	private String nome;	
+	
+	@NotNull
+	private Long professorId;
 	
 	@NotNull
     @Size(min = 6, max = 60)
-	private String sobrenome;
+	private String local;
 	
 	@NotNull
-    @Email
-	private String email;
+	private String horarioInicio;
 	
-	@CPF
-	private String cpf;
+	@NotNull
+	private String horarioFim;
 	
-    @NotNull
-    @Size(min = 8)
-	private String senha;
+	@NotNull
+	private LocalDate inicio;
+	
+	@NotNull
+	private LocalDate fim;
+	
+	@NotNull
+	private List<Integer> dias;
 
 }

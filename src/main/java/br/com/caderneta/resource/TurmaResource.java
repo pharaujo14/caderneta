@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Turma;
+import br.com.caderneta.model.dto.create.TurmaCreateDTO;
 import br.com.caderneta.service.TurmaService;
 
 @RestController
@@ -41,11 +42,11 @@ public class TurmaResource {
     }
 
 	@PostMapping
-	public ResponseEntity<Void> create(@RequestBody Turma turma) {
+	public ResponseEntity<Void> create(@RequestBody TurmaCreateDTO turma) {
 
-		turma = this.turmaService.create(turma);
+		Turma savedTurma = this.turmaService.create(turma);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(turma.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedTurma.getId())
 				.toUri();
 
 		return ResponseEntity.created(uri).build();

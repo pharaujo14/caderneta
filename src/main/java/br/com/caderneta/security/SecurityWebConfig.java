@@ -40,7 +40,8 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				
 				.and().cors().disable().csrf().disable()
-		        .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil));
+		        .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil))
+		        .addFilterAfter(new LocationFilter(), JwtAuthenticationFilter.class);
 	}
 
 	@Bean
