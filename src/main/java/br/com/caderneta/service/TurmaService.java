@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
@@ -11,6 +12,7 @@ import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aluno;
 import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.Turma;
+import br.com.caderneta.model.Usuario;
 import br.com.caderneta.model.dto.create.TurmaCreateDTO;
 import br.com.caderneta.repository.AlunoRepository;
 import br.com.caderneta.repository.TurmaRepository;
@@ -23,6 +25,7 @@ public class TurmaService {
 	private final AulaService aulaService;
 	private final TurmaRepository turmaRepository;
 	private final AlunoRepository alunoRepository;
+	private final ProfessorService professorService;
 
 	public Turma create(TurmaCreateDTO turmaDTO) {
 		Turma turma = fromCreateDTO(turmaDTO);
@@ -81,12 +84,14 @@ public class TurmaService {
 
 	}
 
-	private Turma fromCreateDTO(TurmaCreateDTO turmaDTO) {
+	private Turma fromCreateDTO(TurmaCreateDTO turmaDTO)  {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Professor professor = this.professorService.findByUsuario(user.getId());
 		
 		Turma turma = Turma.builder()
 				.nome(turmaDTO.getNome())
-				.professor(
-						Professor.builder().id(turmaDTO.getProfessorId()).build())
+				.professor(professor)
 				.local(turmaDTO.getLocal())
 				.horarioInicio(turmaDTO.getHorarioInicio())
 				.horarioFim(turmaDTO.getHorarioFim())

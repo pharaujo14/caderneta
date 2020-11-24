@@ -48,13 +48,13 @@ public class ProfessorService {
 					.orElseThrow( () -> new IdNotFoundException("professor: " + id));
 	}
 	
-	public Professor findByUsuario(Long usrId) throws IdNotNullException, IdNotFoundException {
+	public Professor findByUsuario(Long usrId) {
 		Optional
 				.ofNullable(usrId)
-				.orElseThrow( () -> new IdNotNullException("Aluno: " + usrId));
+				.orElseThrow( () -> new IdNotNullException("Professor: " + usrId));
 		
 		return this.professorRepository.findByUsuario_id(usrId)
-					.orElseThrow( () -> new IdNotFoundException("Aluno: " + usrId));
+					.orElseThrow( () -> new IdNotFoundException("Professor: " + usrId));
 	}
 	
 	public List<Professor> findAll(){

@@ -1,6 +1,6 @@
 package br.com.caderneta.exceptions;
 
-public class IdNotNullException extends Exception{
+public class IdNotNullException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
 	

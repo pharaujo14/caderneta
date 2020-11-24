@@ -21,7 +21,6 @@ public class TurmaCreateDTO {
     @Size(min = 6, max = 60)
 	private String nome;	
 	
-	@NotNull
 	private Long professorId;
 	
 	@NotNull
