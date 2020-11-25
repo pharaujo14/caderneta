@@ -71,6 +71,11 @@ public class AlunoService {
 					.orElseThrow( () -> new IdNotFoundException("Aluno: " + usrId));
 	}
 	
+	public Long findByUsuarioId(Long usrId){
+		
+		return this.alunoRepository.findByAlunoId(usrId);
+	}
+	
 	public List<Aluno> findAll(){
 		return this.alunoRepository.findAll();
 	}

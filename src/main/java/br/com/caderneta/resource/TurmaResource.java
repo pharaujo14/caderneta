@@ -1,4 +1,4 @@
-package br.com.caderneta.resource;
+	package br.com.caderneta.resource;
 
 import java.net.URI;
 import java.util.List;
@@ -68,6 +68,15 @@ public class TurmaResource {
 		Turma turma = this.turmaService.findById(id);
 
 		return ResponseEntity.ok(turma);
+
+	}
+	
+	@GetMapping("/{id}/alunos")
+	public ResponseEntity<List<Turma>> findByAluno(){
+
+		List<Turma> turmas = turmaService.findByAluno();
+
+		return ResponseEntity.ok(turmas);
 
 	}
 	

@@ -26,6 +26,7 @@ public class TurmaService {
 	private final TurmaRepository turmaRepository;
 	private final AlunoRepository alunoRepository;
 	private final ProfessorService professorService;
+	private final AlunoService alunoService;
 
 	public Turma create(TurmaCreateDTO turmaDTO) {
 		Turma turma = fromCreateDTO(turmaDTO);
@@ -78,15 +79,28 @@ public class TurmaService {
 
 	}
 
-	public List<Turma> findByProfessor(Professor professor) {
+	public List<Turma> findByProfessor() {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		Professor professor = this.professorService.findByUsuario(user.getId());
 
 		return this.turmaRepository.findByProfessor(professor);
 
 	}
-
-	private Turma fromCreateDTO(TurmaCreateDTO turmaDTO)  {
+	
+	public List<Turma> findByAluno() {
 		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		Long userId = user.getId();
+	
+		Long id = this.alunoService.findByUsuarioId(userId);
+
+		return this.turmaRepository.findByAlunoId(id);
+
+	}
+
+	private Turma fromCreateDTO(TurmaCreateDTO turmaDTO) {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		Professor professor = this.professorService.findByUsuario(user.getId());
 		
 		Turma turma = Turma.builder()

@@ -81,8 +81,8 @@ public class ProfessorResource {
 	}
 	
 	@GetMapping("/{id}/turmas")
-	public ResponseEntity<List<Turma>> findTurmaByProfessor(@PathVariable Long id){
-		List<Turma> turmas = this.turmaService.findByProfessor(Professor.builder().id(id).build());
+	public ResponseEntity<List<Turma>> findTurmaByProfessor(){
+		List<Turma> turmas = this.turmaService.findByProfessor();
 		
 		return ResponseEntity.ok(turmas);
 
