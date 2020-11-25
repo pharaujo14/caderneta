@@ -71,7 +71,7 @@ public class TurmaResource {
 
 	}
 	
-	@GetMapping("/{id}/alunos")
+	@GetMapping("/alunos")
 	public ResponseEntity<List<Turma>> findByAluno(){
 
 		List<Turma> turmas = turmaService.findByAluno();
