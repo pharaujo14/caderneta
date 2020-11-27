@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
@@ -63,10 +64,12 @@ public class TurmaService {
 		this.turmaRepository.deleteById(id);
 	}
 
-	public void addAluno(Long id, String email) throws IdNotFoundException, IdNotNullException {
+	@Transactional
+	public void addAluno(Long id, String email){
 
 		Aluno aluno = alunoRepository.findAlunoByEmail(email);
 		Turma turma = this.findById(id);
+				
 
 		if (aluno.getId().equals(null))
 			return; // criar exception e verificar se o aluno já está na lista
@@ -97,7 +100,7 @@ public class TurmaService {
 		return this.turmaRepository.findByAlunoId(id);
 
 	}
-
+	
 	private Turma fromCreateDTO(TurmaCreateDTO turmaDTO) {
 		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

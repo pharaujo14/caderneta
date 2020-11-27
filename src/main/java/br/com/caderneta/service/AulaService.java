@@ -78,6 +78,11 @@ public class AulaService {
 	public List<Aula> findAll() {
 		return this.aulaRepository.findAll();
 	}
+	
+	public List<Aula> findByTurma_id(Long id) {
+		return this.aulaRepository.findByTurma_id(id);
+
+	}
 
 	public void deleteById(Long id) throws IdNotNullException, IdNotFoundException {
 		this.findById(id);

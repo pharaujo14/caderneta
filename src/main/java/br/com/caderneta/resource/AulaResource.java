@@ -76,6 +76,15 @@ public class AulaResource {
 		return ResponseEntity.ok(this.aulaService.findAll());
 	}
 	
+	@GetMapping("/turma/{id}")
+	public ResponseEntity<List<Aula>> findByTurma(@PathVariable Long id){
+
+		List<Aula> aulas = aulaService.findByTurma_id(id);
+
+		return ResponseEntity.ok(aulas);
+
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws IdNotNullException, IdNotFoundException{
 		this.aulaService.deleteById(id);

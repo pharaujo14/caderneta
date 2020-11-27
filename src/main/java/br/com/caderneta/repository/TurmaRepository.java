@@ -18,6 +18,7 @@ public interface TurmaRepository extends JpaRepository<Turma, Long>{
 			, nativeQuery = true)
 	List<Turma> findByAlunoId(@Param("id") Long id);
 
+
 }
 
 
