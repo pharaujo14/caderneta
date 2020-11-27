@@ -31,7 +31,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/csrf", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
 						"/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/alunos").hasRole(RoleEnum.PROFESSOR.getName())
-				.antMatchers(HttpMethod.GET, "/aulas").hasRole(RoleEnum.ALUNO.getName())
+				.antMatchers(HttpMethod.GET, "/aulas").permitAll()
 
 				.antMatchers(HttpMethod.POST, "/professores", "/alunos").permitAll()
 				.antMatchers(HttpMethod.POST, "/usuarios", "/login").permitAll()
