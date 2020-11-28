@@ -39,6 +39,13 @@ public class TurmaResource {
     	return ResponseEntity.noContent().build();
     	
     }
+    
+    @PutMapping("/deleteAlunos")
+    public ResponseEntity<Void> deleteAluno(@RequestBody TurmaUpdateDTO turmaUpdate){
+    	this.turmaService.deleteAluno(turmaUpdate);
+    	return ResponseEntity.noContent().build();
+    	
+    }
 
 	@PostMapping
 	public ResponseEntity<Void> create(@RequestBody TurmaCreateDTO turma) {

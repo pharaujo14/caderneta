@@ -50,9 +50,6 @@ public class TurmaService {
 	
 	public void addAluno(TurmaUpdateDTO turmaUpdate) {
 		
-		System.out.println(turmaUpdate.getId());
-		System.out.println(turmaUpdate.getEmailAluno());
-		
 		Turma antiga = this.findById(turmaUpdate.getId());		
 		Aluno aluno = alunoRepository.findAlunoByEmail(turmaUpdate.getEmailAluno());
 		
@@ -61,6 +58,22 @@ public class TurmaService {
 		
 		Set<Aluno> alunos = antiga.getAlunos();
 		alunos.add(aluno);
+		antiga.setAlunos(alunos);
+		
+		this.turmaRepository.save(antiga);
+
+	}
+	
+	public void deleteAluno(TurmaUpdateDTO turmaUpdate) {
+		
+		Turma antiga = this.findById(turmaUpdate.getId());		
+		Aluno aluno = alunoRepository.findAlunoByEmail(turmaUpdate.getEmailAluno());
+		
+		if (aluno.getId().equals(null))
+			return; // criar exception e verificar se o aluno já está na lista
+		
+		Set<Aluno> alunos = antiga.getAlunos();
+		alunos.remove(aluno);
 		antiga.setAlunos(alunos);
 		
 		this.turmaRepository.save(antiga);
