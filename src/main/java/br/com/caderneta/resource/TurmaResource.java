@@ -19,6 +19,7 @@ import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Turma;
 import br.com.caderneta.model.dto.create.TurmaCreateDTO;
+import br.com.caderneta.model.dto.update.TurmaUpdateDTO;
 import br.com.caderneta.service.TurmaService;
 
 @RestController
@@ -33,8 +34,8 @@ public class TurmaResource {
 	}
 	
     @PutMapping("/addAlunos")
-    public ResponseEntity<Void> addAluno(@RequestBody Long id, @RequestBody String email) throws IdNotFoundException, IdNotNullException{
-    	this.turmaService.addAluno(id, email);
+    public ResponseEntity<Void> addAluno(@RequestBody TurmaUpdateDTO turmaUpdate){
+    	this.turmaService.addAluno(turmaUpdate);
     	return ResponseEntity.noContent().build();
     	
     }

@@ -2,7 +2,6 @@ package br.com.caderneta.model.dto.update;
 
 import javax.validation.constraints.NotNull;
 
-import br.com.caderneta.model.Aluno;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +19,6 @@ public class TurmaUpdateDTO {
 	private Long id;
 	
 	@NotNull
-	private Aluno aluno;
+	private String emailAluno;
 
 }

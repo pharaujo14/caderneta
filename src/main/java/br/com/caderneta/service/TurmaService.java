@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
@@ -15,6 +14,7 @@ import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.Turma;
 import br.com.caderneta.model.Usuario;
 import br.com.caderneta.model.dto.create.TurmaCreateDTO;
+import br.com.caderneta.model.dto.update.TurmaUpdateDTO;
 import br.com.caderneta.repository.AlunoRepository;
 import br.com.caderneta.repository.TurmaRepository;
 import lombok.AllArgsConstructor;
@@ -47,6 +47,25 @@ public class TurmaService {
 
 		return this.turmaRepository.save(antigo);
 	}
+	
+	public void addAluno(TurmaUpdateDTO turmaUpdate) {
+		
+		System.out.println(turmaUpdate.getId());
+		System.out.println(turmaUpdate.getEmailAluno());
+		
+		Turma antiga = this.findById(turmaUpdate.getId());		
+		Aluno aluno = alunoRepository.findAlunoByEmail(turmaUpdate.getEmailAluno());
+		
+		if (aluno.getId().equals(null))
+			return; // criar exception e verificar se o aluno já está na lista
+		
+		Set<Aluno> alunos = antiga.getAlunos();
+		alunos.add(aluno);
+		antiga.setAlunos(alunos);
+		
+		this.turmaRepository.save(antiga);
+
+	}
 
 	public Turma findById(Long id) throws IdNotFoundException, IdNotNullException {
 		Optional.ofNullable(id).orElseThrow(() -> new IdNotNullException("turma: " + id));
@@ -64,23 +83,6 @@ public class TurmaService {
 		this.turmaRepository.deleteById(id);
 	}
 
-	@Transactional
-	public void addAluno(Long id, String email){
-
-		Aluno aluno = alunoRepository.findAlunoByEmail(email);
-		Turma turma = this.findById(id);
-				
-
-		if (aluno.getId().equals(null))
-			return; // criar exception e verificar se o aluno já está na lista
-
-		Set<Aluno> alunos = turma.getAlunos();
-		alunos.add(aluno);
-		turma.setAlunos(alunos);
-
-		this.turmaRepository.save(turma);
-
-	}
 
 	public List<Turma> findByProfessor() {
 		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -121,5 +123,7 @@ public class TurmaService {
 		return turma;
 
 	}
+	
+
 
 }
