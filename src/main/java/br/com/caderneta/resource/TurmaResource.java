@@ -19,6 +19,7 @@ import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Turma;
 import br.com.caderneta.model.dto.create.TurmaCreateDTO;
+import br.com.caderneta.model.dto.delete.TurmaDeleteDTO;
 import br.com.caderneta.model.dto.update.TurmaUpdateDTO;
 import br.com.caderneta.service.TurmaService;
 
@@ -91,9 +92,9 @@ public class TurmaResource {
 		return ResponseEntity.ok(this.turmaService.findAll());
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) throws IdNotFoundException, IdNotNullException{
-		this.turmaService.deleteById(id);
+	@DeleteMapping
+	public ResponseEntity<Void> delete(@RequestBody TurmaDeleteDTO deleteDTO ) throws IdNotFoundException, IdNotNullException{
+		this.turmaService.deleteById(deleteDTO);
 		
 		return ResponseEntity.noContent().build();
 		

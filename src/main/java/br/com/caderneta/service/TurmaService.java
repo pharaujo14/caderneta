@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
@@ -14,6 +15,7 @@ import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.Turma;
 import br.com.caderneta.model.Usuario;
 import br.com.caderneta.model.dto.create.TurmaCreateDTO;
+import br.com.caderneta.model.dto.delete.TurmaDeleteDTO;
 import br.com.caderneta.model.dto.update.TurmaUpdateDTO;
 import br.com.caderneta.repository.AlunoRepository;
 import br.com.caderneta.repository.TurmaRepository;
@@ -90,9 +92,12 @@ public class TurmaService {
 		return this.turmaRepository.findAll();
 	}
 
-	public void deleteById(Long id) throws IdNotFoundException, IdNotNullException {
-		this.findById(id);
-
+	@Transactional
+	public void deleteById(TurmaDeleteDTO deleteDTO) throws IdNotFoundException, IdNotNullException {
+		Turma turma = this.findById(deleteDTO.getId());
+		Long id = turma.getId();
+		
+		aulaService.deleteByTurma(id);
 		this.turmaRepository.deleteById(id);
 	}
 

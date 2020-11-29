@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
@@ -88,6 +89,11 @@ public class AulaService {
 		this.findById(id);
 
 		this.aulaRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public void deleteByTurma(Long id){
+		this.aulaRepository.deleteByTurma(id);
 	}
 
 }
