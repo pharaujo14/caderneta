@@ -6,25 +6,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caderneta.exceptions.IdNotFoundException;
 import br.com.caderneta.exceptions.IdNotNullException;
 import br.com.caderneta.model.Aula;
+import br.com.caderneta.model.Professor;
 import br.com.caderneta.model.Turma;
+import br.com.caderneta.model.Usuario;
 import br.com.caderneta.repository.AulaRepository;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class AulaService {
 
 	private final AulaRepository aulaRepository;
-
-	@Autowired
-	public AulaService(AulaRepository aulaRepository) {
-		this.aulaRepository = aulaRepository;
-	}
+	private final ProfessorService professorService;
+	private final AlunoService alunoService;
 
 	public Aula create(Aula aula) {
 
@@ -48,6 +49,8 @@ public class AulaService {
 			for (LocalDate data : datas) {
 
 				aulas.add(Aula.builder().data(data).turma(turma)
+						.horarioInicio(turma.getHorarioInicio())
+						.horarioFim(turma.getHorarioFim())
 						.nome("Aula dia " + data.getDayOfMonth() + "-" + data.getMonthValue()).build());
 			}
 
@@ -82,6 +85,26 @@ public class AulaService {
 	
 	public List<Aula> findByTurma_id(Long id) {
 		return this.aulaRepository.findByTurma_id(id);
+
+	}
+	
+	public List<Aula> findByProfessor() {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Professor professor = this.professorService.findByUsuario(user.getId());
+		
+		Long id = professor.getId();
+		
+		return this.aulaRepository.findByProfessor(id);
+
+	}
+	
+	public List<Aula> findByAluno() {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long userId = user.getId();
+		
+		Long id = this.alunoService.findByUsuarioId(userId);
+		
+		return this.aulaRepository.findByAluno(id);
 
 	}
 

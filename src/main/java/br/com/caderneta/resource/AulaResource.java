@@ -76,6 +76,20 @@ public class AulaResource {
 		return ResponseEntity.ok(this.aulaService.findAll());
 	}
 	
+	@GetMapping("/professores")
+	public ResponseEntity<List<Aula>> findByProfessor(){
+		List<Aula> aulas = aulaService.findByProfessor();
+
+		return ResponseEntity.ok(aulas);
+	}
+	
+	@GetMapping("/alunos")
+	public ResponseEntity<List<Aula>> findByAluno(){
+		List<Aula> aulas = aulaService.findByAluno();
+
+		return ResponseEntity.ok(aulas);
+	}
+	
 	@GetMapping("/turma/{id}")
 	public ResponseEntity<List<Aula>> findByTurma(@PathVariable Long id){
 

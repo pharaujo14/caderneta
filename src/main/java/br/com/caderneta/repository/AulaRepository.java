@@ -21,5 +21,15 @@ public interface AulaRepository extends JpaRepository<Aula, Long>{
 	@Query(value = "DELETE FROM aulas WHERE turma_id = :id"
 			, nativeQuery = true)
 	void deleteByTurma(@Param("id") Long id);
+	
+	@Query(value = "select * from aulas where turma_id in "
+			+ "(select id from turmas where professor_id = :id) order by data, horario_inicio"
+			, nativeQuery = true)
+	List<Aula> findByProfessor(@Param("id") Long id);
+	
+	@Query(value = "select * from aulas where turma_id in "
+			+ "(SELECT id FROM turmas t INNER JOIN alunos_turmas at ON t.id = at.turma_id "
+			+ "WHERE at.aluno_id = :id) order by data, horario_inicio", nativeQuery = true)
+	List<Aula> findByAluno(@Param("id") Long id);
 
 }

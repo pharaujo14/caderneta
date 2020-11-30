@@ -42,5 +42,11 @@ public class Aula {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "turma_id")
 	private Turma turma;	
+	
+	@Column(name = "horario_inicio", length = 150, nullable = false)
+	private String horarioInicio;
+	
+	@Column(name = "horario_fim", length = 150, nullable = false)
+	private String horarioFim;
 
 }
