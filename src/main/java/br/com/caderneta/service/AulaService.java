@@ -67,7 +67,7 @@ public class AulaService {
 		Aula antiga = this.findById(nova.getId());
 
 		antiga.setNome(nova.getNome());
-		antiga.setData(nova.getData());
+		antiga.setConteudo(nova.getConteudo());
 
 		return this.aulaRepository.save(antiga);
 	}
