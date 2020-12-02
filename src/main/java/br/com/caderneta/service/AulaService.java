@@ -51,6 +51,7 @@ public class AulaService {
 				aulas.add(Aula.builder().data(data).turma(turma)
 						.horarioInicio(turma.getHorarioInicio())
 						.horarioFim(turma.getHorarioFim())
+						.conteudo("")
 						.nome("Aula dia " + data.getDayOfMonth() + "-" + data.getMonthValue()).build());
 			}
 
@@ -98,6 +99,17 @@ public class AulaService {
 
 	}
 	
+	public List<Aula> findByProfessorDashboard() {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Professor professor = this.professorService.findByUsuario(user.getId());
+		
+		Long id = professor.getId();
+		LocalDate ld = LocalDate.now();		
+				
+		return this.aulaRepository.findByProfessorDashboard(id, ld);
+
+	}
+	
 	public List<Aula> findByAluno() {
 		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long userId = user.getId();
@@ -107,6 +119,19 @@ public class AulaService {
 		return this.aulaRepository.findByAluno(id);
 
 	}
+	
+	public List<Aula> findByAlunoDashboard() {
+		Usuario user = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long userId = user.getId();
+		
+		Long id = this.alunoService.findByUsuarioId(userId);
+		LocalDate ld = LocalDate.now();
+		
+		return this.aulaRepository.findByAlunoDashboard(id, ld);
+
+	}
+	
+	
 
 	public void deleteById(Long id) throws IdNotNullException, IdNotFoundException {
 		this.findById(id);

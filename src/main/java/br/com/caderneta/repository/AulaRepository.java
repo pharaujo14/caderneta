@@ -1,5 +1,6 @@
 package br.com.caderneta.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,9 +28,19 @@ public interface AulaRepository extends JpaRepository<Aula, Long>{
 			, nativeQuery = true)
 	List<Aula> findByProfessor(@Param("id") Long id);
 	
+	@Query(value = "select * from aulas where data between :date and '2030-01-01' and turma_id in "
+			+ "(select id from turmas where professor_id = :id) order by data, horario_inicio"
+			, nativeQuery = true)
+	List<Aula> findByProfessorDashboard(@Param("id") Long id, @Param("date") LocalDate date);
+	
 	@Query(value = "select * from aulas where turma_id in "
 			+ "(SELECT id FROM turmas t INNER JOIN alunos_turmas at ON t.id = at.turma_id "
 			+ "WHERE at.aluno_id = :id) order by data, horario_inicio", nativeQuery = true)
 	List<Aula> findByAluno(@Param("id") Long id);
+	
+	@Query(value = "select * from aulas where data between :date and '2030-01-01' and turma_id in "
+			+ "(SELECT id FROM turmas t INNER JOIN alunos_turmas at ON t.id = at.turma_id "
+			+ "WHERE at.aluno_id = :id) order by data, horario_inicio", nativeQuery = true)
+	List<Aula> findByAlunoDashboard(@Param("id") Long id, @Param("date") LocalDate date);
 
 }

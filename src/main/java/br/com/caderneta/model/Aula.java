@@ -49,7 +49,7 @@ public class Aula {
 	@Column(name = "horario_fim", length = 150, nullable = false)
 	private String horarioFim;
 	
-	@Column(name = "conteudo", nullable = false)
+	@Column(name = "conteudo")
 	private String conteudo;
 
 }
